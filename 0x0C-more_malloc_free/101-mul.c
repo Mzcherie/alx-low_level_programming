@@ -1,9 +1,6 @@
 #include "main.h"
 #include <stdlib.h>
 #include <stdio.h>
-
-
-
 /**
  * main - Multiplies two positive numbers.
  * @argv: The number of arguments passed to the program.
@@ -33,7 +30,6 @@ int main(int argc, char *argv[])
 		printf("0\n");
 		return (0);
 	}
-
 	size = find_len(argv[1]) + find_len(argv[2]);
 	final_prod = create_xarray(size + 1);
 	next_prod = create_xarray(size + 1);
@@ -50,9 +46,7 @@ int main(int argc, char *argv[])
 			putchar(final_prod[index]);
 	}
 	putchar('\n');
-
 	free(next_prod);
 	free(final_prod);
-
 	return (0);
 }
