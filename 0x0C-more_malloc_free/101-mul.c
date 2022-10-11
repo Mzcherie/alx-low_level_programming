@@ -1,58 +1,91 @@
-#include "main.h"
-#include <stdlib.h>
-#include <stdio.h>
-
-
+include "holberton.h"
 
 /**
- * main - Multiplies two positive numbers.
- * @argv: The number of arguments passed to the program.
- * @argc: An array of pointers to the arguments.
- *
- * Description: If the number of arguments is incorrect or one number
- *              contains non-digits, the function exits with a status of 98.
- * Return: Always 0.
- */
-int main(int argc, char *argv[])
+ * _puts - prints a string, followed by a new line,
+ * @str: pointer to the string to print
+ * Return: void
+*/
+
+
+void _puts(char *str)
 {
-	char *final_prod, *next_prod;
-	int size, index, digit, zeroes = 0;
+int i = 0;
+while (str[i])
+{
+	_putchar(str[i]);
+	i++;
+}
 
-	if (argc != 3)
+}
+
+/**
+ * _atoi - convert a string to an integer.
+ * @s: char type string
+ * Return: integer converted
+ */
+
+int _atoi(const char *s)
+{
+    int sign = 1;
+	unsigned long int resp = 0, firstNum, i;
+
+	for (firstNum = 0; !(s[firstNum] >= 48 && s[firstNum] <= 57); firstNum++)
 	{
-		printf("Error\n");
-		exit(98);
+		if (s[firstNum] == '-')
+		{
+			sign *= -1;
+		}
 	}
 
-	if (*(argv[1]) == '0')
-		argv[1] = iterate_zeroes(argv[1]);
-	if (*(argv[2]) == '0')
-		argv[2] = iterate_zeroes(argv[2]);
-	if (*(argv[1]) == '\0' || *(argv[2]) == '\0')
+	for (i = firstNum; s[i] >= 48 && s[i] <= 57; i++)
 	{
-		printf("0\n");
-		return (0);
+		resp *= 10;
+		resp += (s[i] - 48);
 	}
 
-	size = find_len(argv[1]) + find_len(argv[2]);
-	final_prod = create_xarray(size + 1);
-	next_prod = create_xarray(size + 1);
+	return (sign * resp);
+}
 
-	for (index = find_len(argv[2]) - 1; index >= 0; index--)
-	{
-		digit = get_digit(*(argv[2] + index));
-		get_prod(next_prod, argv[1], digit, zeroes++);
-		add_nums(final_prod, next_prod, size - 1);
-	}
-	for (index = 0; final_prod[index]; index++)
-	{
-		if (final_prod[index] != 'x')
-			putchar(final_prod[index]);
-	}
-	putchar('\n');
+/**
+ * print_int - prints an integer.
+ * @n: int
+ * Return: 0
+ */
 
-	free(next_prod);
-	free(final_prod);
+void print_int(unsigned long int n)
+{
 
-	return (0);
+unsigned  long int divisor = 1, i, resp;
+
+for (i = 0; n / divisor > 9; i++, divisor *= 10)
+;
+
+for (; divisor >= 1; n %= divisor, divisor /= 10)
+{
+	resp = n / divisor;
+	_putchar('0' + resp);
+}
+
+}
+
+/i*
+ * main - print the result of the multiplication, followed by a new line
+ * @argc: int
+ * @argv: list
+ * Return: 0
+ */
+
+int main(int argc, char const *argv[])
+{
+(void)argc;
+
+if (argc != 3)
+{
+	_puts("Error ");
+	exit(98);
+}
+print_int(_atoi(argv[1]) * _atoi(argv[2]));
+_putchar('\n');
+
+return (0);
 }
